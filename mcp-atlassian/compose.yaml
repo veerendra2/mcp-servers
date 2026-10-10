@@ -1,0 +1,20 @@
+services:
+  mcp-atlassian:
+    image: ghcr.io/sooperset/mcp-atlassian:latest
+    env_file:
+      - .env
+    environment:
+      TRANSPORT: sse
+      PORT: 8000
+      HOST: 0.0.0.0
+      ALLOW_GLOBAL_CRED_FALLBACK: "true"
+      READ_ONLY_MODE: "true"
+    ports:
+      - "127.0.0.1:20129:8000"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
