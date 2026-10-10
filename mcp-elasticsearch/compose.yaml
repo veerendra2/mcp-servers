@@ -1,21 +1,13 @@
 services:
   mcp-elasticsearch:
-    image: ghcr.io/cr7258/elasticsearch-mcp-server:latest
+    # TODO: Switch to ghcr.io/cr7258/elasticsearch-mcp-server:latest once the
+    # PR is merged: https://github.com/cr7258/elasticsearch-mcp-server/pull/76
+    image: veerendra2/elasticsearch-mcp-server:latest
     env_file:
       - .env
     environment:
       DISABLE_HIGH_RISK_OPERATIONS: "true"
       VERIFY_CERTS: "false"
-    command:
-      - elasticsearch-mcp-server
-      - --transport
-      - streamable-http
-      - --host
-      - 0.0.0.0
-      - --port
-      - "8000"
-      - --path
-      - /mcp
     ports:
       - "127.0.0.1:20130:8000"
     extra_hosts:
