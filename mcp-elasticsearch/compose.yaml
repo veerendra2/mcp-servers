@@ -1,3 +1,4 @@
+---
 services:
   mcp-elasticsearch:
     # TODO: Switch to ghcr.io/cr7258/elasticsearch-mcp-server:latest once the

@@ -1,3 +1,4 @@
+---
 services:
   mcp-atlassian:
     image: ghcr.io/sooperset/mcp-atlassian:latest
