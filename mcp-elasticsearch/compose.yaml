@@ -1,9 +1,7 @@
 ---
 services:
   mcp-elasticsearch:
-    # TODO: Switch to ghcr.io/cr7258/elasticsearch-mcp-server:latest once the
-    # PR is merged: https://github.com/cr7258/elasticsearch-mcp-server/pull/76
-    image: veerendra2/elasticsearch-mcp-server:latest
+    image: ghcr.io/cr7258/elasticsearch-mcp-server:v2.1.5
     env_file:
       - .env
     environment:
