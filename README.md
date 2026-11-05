@@ -27,4 +27,31 @@ Start all servers with:
 
 ```sh
 ./deploy.sh
+
+# Remove
+./destroy.sh
+```
+
+## Coding Agents Configuration
+
+## Codex
+
+Add below config in `~/.codex/config.toml`
+
+```toml
+...
+[mcp_servers]
+
+[mcp_servers.grafana]
+url = "http://127.0.0.1:20131/mcp"
+
+[mcp_servers.atlassian]
+url = "http://127.0.0.1:20129/mcp"
+
+[mcp_servers.elasticsearch]
+url = "http://127.0.0.1:20130/mcp"
+
+[mcp_servers.kibana]
+url = "http://127.0.0.1:20132/mcp"
+...
 ```
