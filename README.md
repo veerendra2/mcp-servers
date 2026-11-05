@@ -7,7 +7,7 @@ context from external systems. These services are exposed on localhost only.
 
 | MCP Server                               | Project Repo                                                                          | Endpoint                     |
 | ---------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------- |
-| [mcp-atlassian](./mcp-atlassian)         | [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)                 | `http://127.0.0.1:20129/sse` |
+| [mcp-atlassian](./mcp-atlassian)         | [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)                 | `http://127.0.0.1:20129/mcp` |
 | [mcp-elasticsearch](./mcp-elasticsearch) | [cr7258/elasticsearch-mcp-server](https://github.com/cr7258/elasticsearch-mcp-server) | `http://127.0.0.1:20130/mcp` |
 | [mcp-grafana](./mcp-grafana)             | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana)                         | `http://127.0.0.1:20131/mcp` |
 | [mcp-kibana](./mcp-kibana)               | [TocharianOU/mcp-server-kibana](https://github.com/TocharianOU/mcp-server-kibana)     | `http://127.0.0.1:20132/mcp` |
@@ -55,3 +55,95 @@ url = "http://127.0.0.1:20130/mcp"
 url = "http://127.0.0.1:20132/mcp"
 ...
 ```
+
+## GitHub Copilot CLI
+
+Add to `~/.copilot/mcp-config.json`:
+
+```json
+{
+  "mcpServers": {
+    "grafana": {
+      "type": "http",
+      "url": "http://127.0.0.1:20131/mcp",
+      "tools": ["*"]
+    },
+    "atlassian": {
+      "type": "http",
+      "url": "http://127.0.0.1:20129/mcp",
+      "tools": ["*"]
+    },
+    "elasticsearch": {
+      "type": "http",
+      "url": "http://127.0.0.1:20130/mcp",
+      "tools": ["*"]
+    },
+    "kibana": {
+      "type": "http",
+      "url": "http://127.0.0.1:20132/mcp",
+      "tools": ["*"]
+    }
+  }
+}
+```
+
+Check with `copilot mcp list`.
+
+## Pi
+
+Add to `~/.pi/agent/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "grafana": {
+      "type": "http",
+      "url": "http://127.0.0.1:20131/mcp"
+    },
+    "atlassian": {
+      "type": "http",
+      "url": "http://127.0.0.1:20129/mcp"
+    },
+    "elasticsearch": {
+      "type": "http",
+      "url": "http://127.0.0.1:20130/mcp"
+    },
+    "kibana": {
+      "type": "http",
+      "url": "http://127.0.0.1:20132/mcp"
+    }
+  }
+}
+```
+
+Check with `pi mcp list`; run `/reload` inside an existing Pi session after editing.
+Pi supports streamable HTTP here and does not support legacy SSE entries.
+
+## Claude Code
+
+For user scope, add to `~/.claude.json`:
+
+```json
+{
+  "mcpServers": {
+    "grafana": {
+      "type": "http",
+      "url": "http://127.0.0.1:20131/mcp"
+    },
+    "atlassian": {
+      "type": "http",
+      "url": "http://127.0.0.1:20129/mcp"
+    },
+    "elasticsearch": {
+      "type": "http",
+      "url": "http://127.0.0.1:20130/mcp"
+    },
+    "kibana": {
+      "type": "http",
+      "url": "http://127.0.0.1:20132/mcp"
+    }
+  }
+}
+```
+
+Check with `claude mcp list` or `claude mcp get grafana`.
