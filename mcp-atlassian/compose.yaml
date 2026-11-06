@@ -5,7 +5,7 @@ services:
     env_file:
       - .env
     environment:
-      TRANSPORT: sse
+      TRANSPORT: streamable-http
       PORT: 8000
       HOST: 0.0.0.0
       ALLOW_GLOBAL_CRED_FALLBACK: "true"
