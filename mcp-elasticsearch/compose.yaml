@@ -1,7 +1,7 @@
 ---
 services:
   mcp-elasticsearch:
-    image: ghcr.io/cr7258/elasticsearch-mcp-server:v2.1.5
+    image: ghcr.io/cr7258/elasticsearch-mcp-server:v2.1.7
     env_file:
       - .env
     environment:
