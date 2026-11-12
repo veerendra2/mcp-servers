@@ -1,7 +1,7 @@
 ---
 services:
   mcp-elasticsearch:
-    image: ghcr.io/cr7258/elasticsearch-mcp-server:v2.1.7
+    image: ghcr.io/cr7258/elasticsearch-mcp-server:v2.1.9
     env_file:
       - .env
     environment:
@@ -9,8 +9,6 @@ services:
       VERIFY_CERTS: "false"
     ports:
       - "127.0.0.1:20130:8000"
-    extra_hosts:
-      - host.docker.internal:host-gateway
     read_only: true
     cap_drop:
       - ALL
