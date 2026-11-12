@@ -1,0 +1,25 @@
+---
+name: Validation
+on:
+  pull_request:
+    paths:
+      - "mcp-*/**"
+jobs:
+  validate:
+    name: Validate Compose Config
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v2
+        with:
+          version: "v5.5.1"
+      - name: Validate Compose Config
+        run: |
+          for directory in mcp-*/; do
+            [ -f "$directory/compose.yaml" ] || continue
+            # .env is gitignored, so seed it from the committed placeholders.
+            cp "$directory/.env.example" "$directory/.env"
+            (cd "$directory" && docker compose config --quiet)
+          done

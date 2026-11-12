@@ -1,0 +1,11 @@
+---
+# Rules: https://github.com/zavoloklom/docker-compose-linter/blob/main/docs/rules.md
+# 0 -> Disabled, 1 -> Warning, 2 -> Error
+$schema: "https://raw.githubusercontent.com/zavoloklom/docker-compose-linter/refs/heads/main/schemas/linter-config.schema.json"
+rules:
+  # Upstream images are pinned by digest/tag choice per server, not enforced here.
+  service-image-require-explicit-tag: 0
+  # mcp-kibana builds locally and tags the result, so both keys are intended.
+  no-build-and-image: 0
+quiet: false
+debug: false

@@ -1,0 +1,36 @@
+---
+name: Lint
+on:
+  pull_request:
+jobs:
+  docker-compose-lint:
+    name: Docker Compose Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Set up dclint
+        run: |
+          npm install --global dclint
+          dclint --version
+      - name: Run dclint
+        run: dclint --config=.dclintrc.yml --recursive mcp-*
+  yaml-lint:
+    name: Yaml Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Set up yamlfmt and yamllint
+        run: |
+          version=$(curl -s https://api.github.com/repos/google/yamlfmt/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+          curl -sL -o yamlfmt.tar.gz "https://github.com/google/yamlfmt/releases/download/v${version}/yamlfmt_${version}_$(uname -s)_$(uname -m).tar.gz"
+          tar -xzf yamlfmt.tar.gz
+          chmod +x yamlfmt
+          pip install yamllint
+          ./yamlfmt -version
+          yamllint --version
+      - name: Run yamlfmt
+        run: ./yamlfmt -conf=.yamlfmt.yaml lint .
+      - name: Run yamllint
+        run: yamllint --config-file=.yamllint.yml .
