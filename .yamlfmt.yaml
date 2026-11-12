@@ -1,0 +1,7 @@
+---
+# https://github.com/google/yamlfmt/blob/main/docs/config-file.md
+# Scope comes from the paths passed on the command line; yamlfmt's `include`
+# does not expand globs, so CI passes `mcp-*` explicitly.
+formatter:
+  type: basic
+  include_document_start: true
