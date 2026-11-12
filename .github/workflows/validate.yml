@@ -2,8 +2,6 @@
 name: Validation
 on:
   pull_request:
-    paths:
-      - "mcp-*/**"
 jobs:
   validate:
     name: Validate Compose Config

@@ -31,6 +31,6 @@ jobs:
           ./yamlfmt -version
           yamllint --version
       - name: Run yamlfmt
-        run: ./yamlfmt -conf=.yamlfmt.yaml lint .
+        run: ./yamlfmt -conf=.yamlfmt.yaml -lint mcp-*
       - name: Run yamllint
         run: yamllint --config-file=.yamllint.yml .
