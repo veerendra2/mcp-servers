@@ -1,4 +1,4 @@
-FROM node:22-slim
+FROM node:25-slim
 
 RUN npm install -g --no-fund --no-audit @tocharianou/mcp-server-kibana@0.11.1 \
     && npm cache clean --force
