@@ -10,8 +10,12 @@ updates:
         patterns:
           - "*"
   - package-ecosystem: "docker-compose"
+    # New servers must be added here. mcp-kibana is excluded: its image is
+    # built locally, so Dependabot's tag lookup fails and fails the whole job.
     directories:
-      - "/mcp-*"
+      - "/mcp-atlassian"
+      - "/mcp-elasticsearch"
+      - "/mcp-grafana"
     schedule:
       interval: "monthly"
     groups:
