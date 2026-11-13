@@ -10,8 +10,11 @@ updates:
         patterns:
           - "*"
   - package-ecosystem: "docker-compose"
+    # Only elasticsearch pins an image tag. atlassian and grafana track
+    # `:latest`, which Dependabot cannot bump, and mcp-kibana builds locally,
+    # which makes its Docker Hub tag lookup fail the whole job.
     directories:
-      - "/mcp-*"
+      - "/mcp-elasticsearch"
     schedule:
       interval: "monthly"
     groups:
