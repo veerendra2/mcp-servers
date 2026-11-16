@@ -5,23 +5,50 @@ services:
   mcp-msteams:
     build:
       context: .
-    command:
-      - --stdio
-      - node /app/dist/index.js
-      - --outputTransport
-      - streamableHttp
-      - --stateful
-      - --host
-      - 0.0.0.0
-      - --port
-      - "8000"
-      - --streamableHttpPath
-      - /mcp
     volumes:
-      - mcp_msteams_data:/home/pwuser/.teams-mcp-server
+      - mcp_msteams_data:/home/pwuser
+    secrets:
+      - msteams_env
     ports:
       - '127.0.0.1:20133:8000'
+    command:
+      - --stdio=node /app/dist/index.js
+      - --outputTransport=streamableHttp
+      - --stateful
+      - --host=0.0.0.0
+      - --port=8000
+      - --streamableHttpPath=/mcp
+      - --apiKeyFile=/tmp/msteams_api_key
+      # Explicit allowlist keeps new upstream tools unavailable until reviewed.
+      - --tools=teams_find_channel
+      - --tools=teams_get_activity
+      - --tools=teams_get_assignment
+      - --tools=teams_get_chat
+      - --tools=teams_get_favorites
+      - --tools=teams_get_followed_threads
+      - --tools=teams_get_frequent_contacts
+      - --tools=teams_get_me
+      - --tools=teams_get_meetings
+      - --tools=teams_get_message
+      - --tools=teams_get_person
+      - --tools=teams_get_saved_messages
+      - --tools=teams_get_shared_files
+      - --tools=teams_get_tags
+      - --tools=teams_get_thread
+      - --tools=teams_get_transcript
+      - --tools=teams_get_unread
+      - --tools=teams_list_assignments
+      - --tools=teams_list_chats
+      - --tools=teams_search
+      - --tools=teams_search_email
+      - --tools=teams_search_emoji
+      - --tools=teams_search_people
+      - --tools=teams_status
+      - --tools=teams_wait_for_reply
     restart: unless-stopped
+    mem_limit: 2g
+    cpus: "2.0"
+    pids_limit: 256
     cap_drop:
       - ALL
     hostname: mcp-msteams
@@ -39,11 +66,14 @@ services:
       additional_contexts:
         msteams_base: service:mcp-msteams
     volumes:
-      - mcp_msteams_data:/home/pwuser/.teams-mcp-server
+      - mcp_msteams_data:/home/pwuser
     environment:
       DISPLAY: :99
     ports:
       - '127.0.0.1:6080:6080'
+    mem_limit: 3g
+    cpus: "2.0"
+    pids_limit: 256
     cap_drop:
       - ALL
     hostname: mcp-msteams
@@ -60,3 +90,7 @@ services:
 volumes:
   mcp_msteams_data:
     name: mcp_msteams_data
+
+secrets:
+  msteams_env:
+    file: ${MSTEAMS_MCP_SECRET_FILE:-.env}
