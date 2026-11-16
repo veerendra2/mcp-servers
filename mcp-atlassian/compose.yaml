@@ -1,20 +1,28 @@
 ---
+name: mcp-atlassian
+
 services:
   mcp-atlassian:
     image: ghcr.io/sooperset/mcp-atlassian:latest
-    env_file:
-      - .env
+    volumes:
+      - mcp_atlassian_data:/home/app
     environment:
       TRANSPORT: streamable-http
       PORT: 8000
       HOST: 0.0.0.0
       ALLOW_GLOBAL_CRED_FALLBACK: "true"
       READ_ONLY_MODE: "true"
+    env_file:
+      - .env
     ports:
-      - "127.0.0.1:20129:8000"
-    read_only: true
+      - '127.0.0.1:20129:8000'
+    restart: unless-stopped
     cap_drop:
       - ALL
+    read_only: true
     security_opt:
       - no-new-privileges:true
-    restart: unless-stopped
+
+volumes:
+  mcp_atlassian_data:
+    name: mcp_atlassian_data

@@ -1,20 +1,22 @@
 ---
+name: grafana-mcp
+
 services:
   grafana-mcp:
     image: grafana/mcp-grafana:latest
-    entrypoint: ["/app/mcp-grafana"]
+    env_file:
+      - .env
+    ports:
+      - '127.0.0.1:20131:8000'
     command:
       - --transport=streamable-http
       - --address=0.0.0.0:8000
       - --allowed-hosts=localhost:20131,127.0.0.1:20131
       - --disable-write=true
-    env_file:
-      - .env
-    ports:
-      - "127.0.0.1:20131:8000"
-    read_only: true
+    entrypoint: [ "/app/mcp-grafana" ]
+    restart: unless-stopped
     cap_drop:
       - ALL
+    read_only: true
     security_opt:
       - no-new-privileges:true
-    restart: unless-stopped
