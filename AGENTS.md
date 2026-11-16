@@ -26,6 +26,7 @@ Projects:
 - [mcp-elasticsearch](./mcp-elasticsearch)
 - [mcp-grafana](./mcp-grafana)
 - [mcp-kibana](./mcp-kibana)
+- [mcp-msteams](./mcp-msteams)
 
 ## Documentation and startup
 

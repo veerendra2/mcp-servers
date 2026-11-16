@@ -1,0 +1,62 @@
+---
+name: mcp-msteams
+
+services:
+  mcp-msteams:
+    build:
+      context: .
+    command:
+      - --stdio
+      - node /app/dist/index.js
+      - --outputTransport
+      - streamableHttp
+      - --stateful
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+      - --streamableHttpPath
+      - /mcp
+    volumes:
+      - mcp_msteams_data:/home/pwuser/.teams-mcp-server
+    ports:
+      - '127.0.0.1:20133:8000'
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    hostname: mcp-msteams
+    init: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+
+  mcp-msteams-login:
+    build:
+      context: .
+      dockerfile: Dockerfile.login
+      additional_contexts:
+        msteams_base: service:mcp-msteams
+    volumes:
+      - mcp_msteams_data:/home/pwuser/.teams-mcp-server
+    environment:
+      DISPLAY: :99
+    ports:
+      - '127.0.0.1:6080:6080'
+    cap_drop:
+      - ALL
+    hostname: mcp-msteams
+    init: true
+    profiles:
+      - login
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+      - /tmp/.X11-unix:mode=1777
+
+volumes:
+  mcp_msteams_data:
+    name: mcp_msteams_data

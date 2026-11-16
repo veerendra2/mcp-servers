@@ -11,6 +11,7 @@ context from external systems. These services are exposed on localhost only.
 | [mcp-elasticsearch](./mcp-elasticsearch) | [cr7258/elasticsearch-mcp-server](https://github.com/cr7258/elasticsearch-mcp-server) | `http://127.0.0.1:20130/mcp` |
 | [mcp-grafana](./mcp-grafana)             | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana)                         | `http://127.0.0.1:20131/mcp` |
 | [mcp-kibana](./mcp-kibana)               | [TocharianOU/mcp-server-kibana](https://github.com/TocharianOU/mcp-server-kibana)     | `http://127.0.0.1:20132/mcp` |
+| [mcp-msteams](./mcp-msteams)             | [m0nkmaster/msteams-mcp](https://github.com/m0nkmaster/msteams-mcp)                   | `http://127.0.0.1:20133/mcp` |
 
 Create each ignored `.env` file from its example:
 
@@ -53,6 +54,9 @@ url = "http://127.0.0.1:20130/mcp"
 
 [mcp_servers.kibana]
 url = "http://127.0.0.1:20132/mcp"
+
+[mcp_servers.msteams]
+url = "http://127.0.0.1:20133/mcp"
 ...
 ```
 
@@ -81,6 +85,11 @@ Add to `~/.copilot/mcp-config.json`:
     "kibana": {
       "type": "http",
       "url": "http://127.0.0.1:20132/mcp",
+      "tools": ["*"]
+    },
+    "msteams": {
+      "type": "http",
+      "url": "http://127.0.0.1:20133/mcp",
       "tools": ["*"]
     }
   }
@@ -111,6 +120,10 @@ Add to `~/.pi/agent/mcp.json`:
     "kibana": {
       "type": "http",
       "url": "http://127.0.0.1:20132/mcp"
+    },
+    "msteams": {
+      "type": "http",
+      "url": "http://127.0.0.1:20133/mcp"
     }
   }
 }
@@ -141,9 +154,20 @@ For user scope, add to `~/.claude.json`:
     "kibana": {
       "type": "http",
       "url": "http://127.0.0.1:20132/mcp"
+    },
+    "msteams": {
+      "type": "http",
+      "url": "http://127.0.0.1:20133/mcp"
     }
   }
 }
 ```
 
 Check with `claude mcp list` or `claude mcp get grafana`.
+
+## Microsoft Teams authentication
+
+The Teams container stores encrypted session data in the `mcp_msteams_data`
+volume. First-time login needs a visible browser inside the container; follow
+the [Docker login guide](./mcp-msteams/README.md). The upstream server includes
+write-capable tools, so only connect trusted MCP clients.
