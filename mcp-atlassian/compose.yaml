@@ -1,6 +1,5 @@
 ---
 name: mcp-atlassian
-
 services:
   mcp-atlassian:
     image: ghcr.io/sooperset/mcp-atlassian:latest
@@ -22,7 +21,6 @@ services:
     read_only: true
     security_opt:
       - no-new-privileges:true
-
 volumes:
   mcp_atlassian_data:
     name: mcp_atlassian_data
