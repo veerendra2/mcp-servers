@@ -5,6 +5,7 @@ services:
     image: mcp-server-kibana:0.11.1
     build:
       context: .
+    pull_policy: build
     environment:
       MCP_TRANSPORT: http
       MCP_HTTP_HOST: 0.0.0.0
