@@ -5,7 +5,7 @@ My collection of MCP servers in Docker.
 Model Context Protocol (MCP) servers let AI clients use tools and retrieve
 context from external systems. These services are exposed on localhost only.
 
-| MCP Server                               | Project Repo                                                                          | Endpoint                     |
+| MCP Server                               | Upstream Project                                                                      | Endpoint                     |
 | ---------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------- |
 | [mcp-atlassian](./mcp-atlassian)         | [sooperset/mcp-atlassian](https://github.com/sooperset/mcp-atlassian)                 | `http://127.0.0.1:20129/mcp` |
 | [mcp-elasticsearch](./mcp-elasticsearch) | [cr7258/elasticsearch-mcp-server](https://github.com/cr7258/elasticsearch-mcp-server) | `http://127.0.0.1:20130/mcp` |
