@@ -1,6 +1,5 @@
 ---
 name: mcp-elasticsearch
-
 services:
   mcp-elasticsearch:
     image: ghcr.io/cr7258/elasticsearch-mcp-server:v2.1.9

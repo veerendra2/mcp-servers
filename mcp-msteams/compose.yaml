@@ -1,6 +1,5 @@
 ---
 name: mcp-msteams
-
 services:
   mcp-msteams:
     build:
@@ -58,7 +57,6 @@ services:
       - no-new-privileges:true
     tmpfs:
       - /tmp
-
   mcp-msteams-login:
     build:
       context: .
@@ -86,11 +84,9 @@ services:
     tmpfs:
       - /tmp
       - /tmp/.X11-unix:mode=1777
-
 volumes:
   mcp_msteams_data:
     name: mcp_msteams_data
-
 secrets:
   msteams_env:
     file: ${MSTEAMS_MCP_SECRET_FILE:-.env}
