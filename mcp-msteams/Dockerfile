@@ -4,9 +4,7 @@ FROM mcr.microsoft.com/playwright:v1.58.0-noble@sha256:35c7d48b4ccaf3aca5018f5f1
 
 WORKDIR /app
 
-ADD --checksum=sha256:4b9ea71e9a1c960918d6fc2faaf0e10782d3f0ff04a508556b9b39ae32ee0e65 \
-    https://github.com/m0nkmaster/msteams-mcp/archive/refs/tags/v0.31.0.tar.gz \
-    /tmp/msteams-mcp.tar.gz
+ADD https://github.com/m0nkmaster/msteams-mcp/archive/refs/tags/v0.31.5.tar.gz /tmp/msteams-mcp.tar.gz
 
 COPY apply-readonly-patch.mjs /tmp/apply-readonly-patch.mjs
 

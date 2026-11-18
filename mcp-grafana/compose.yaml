@@ -1,7 +1,7 @@
 ---
-name: grafana-mcp
+name: mcp-grafana
 services:
-  grafana-mcp:
+  mcp-grafana:
     image: grafana/mcp-grafana:latest
     env_file:
       - .env
