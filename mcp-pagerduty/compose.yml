@@ -25,7 +25,7 @@ services:
         USER 10001
         EXPOSE 8000
         ENTRYPOINT ["pagerduty-mcp"]
-    container_name: pagerduty-mcp
+    container_name: mcp-pagerduty
     environment:
       MCP_HOST: "0.0.0.0"
       MCP_PORT: "8000"
