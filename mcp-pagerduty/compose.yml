@@ -1,0 +1,48 @@
+---
+name: mcp-pagerduty
+services:
+  mcp-pagerduty:
+    image: mcp-pagerduty:http-local
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM python:3.12-slim AS builder
+        RUN apt-get update && \
+            apt-get install -y --no-install-recommends \
+            git ca-certificates && \
+            rm -rf /var/lib/apt/lists/*
+
+        # Pinned upstream commit with HTTP transport support
+        RUN pip install --no-cache-dir --prefix=/install \
+          "git+https://github.com/PagerDuty/pagerduty-mcp-server.git@b6d675b20bb95ef331c2928d05f7185522f1a465"
+
+        FROM python:3.12-slim
+        COPY --from=builder /install /usr/local
+        RUN useradd --uid 10001 --create-home mcp
+
+        ENV PYTHONDONTWRITEBYTECODE=1
+        ENV PYTHONUNBUFFERED=1
+        USER 10001
+        EXPOSE 8000
+        ENTRYPOINT ["pagerduty-mcp"]
+    container_name: pagerduty-mcp
+    environment:
+      MCP_HOST: "0.0.0.0"
+      MCP_PORT: "8000"
+    env_file:
+      - .env
+    ports:
+      - '127.0.0.1:20134:8000'
+    command:
+      - --transport=streamable-http
+      # Enable Write Tools
+      # - --enable-write-tools
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    init: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=64m

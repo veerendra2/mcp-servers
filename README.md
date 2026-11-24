@@ -12,6 +12,7 @@ context from external systems. These services are exposed on localhost only.
 | [mcp-grafana](./mcp-grafana)             | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana)                         | `http://127.0.0.1:20131/mcp` |
 | [mcp-kibana](./mcp-kibana)               | [TocharianOU/mcp-server-kibana](https://github.com/TocharianOU/mcp-server-kibana)     | `http://127.0.0.1:20132/mcp` |
 | [mcp-msteams](./mcp-msteams)             | [m0nkmaster/msteams-mcp](https://github.com/m0nkmaster/msteams-mcp)                   | `http://127.0.0.1:20133/mcp` |
+| [mcp-pagerduty](./mcp-pagerduty)         | [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server)   | `http://127.0.0.1:20134/mcp` |
 
 Create each ignored `.env` file from its example:
 
@@ -39,31 +40,31 @@ Start all servers with:
 <details>
   <summary>Codex</summary>
 
-  Add below config in `~/.codex/config.toml`
+Add below config in `~/.codex/config.toml`
 
-  ```toml
-  ...
-  [mcp_servers]
+```toml
+...
+[mcp_servers]
 
-  [mcp_servers.grafana]
-  url = "http://127.0.0.1:20131/mcp"
+[mcp_servers.grafana]
+url = "http://127.0.0.1:20131/mcp"
 
-  [mcp_servers.atlassian]
-  url = "http://127.0.0.1:20129/mcp"
+[mcp_servers.atlassian]
+url = "http://127.0.0.1:20129/mcp"
 
-  [mcp_servers.elasticsearch]
-  url = "http://127.0.0.1:20130/mcp"
+[mcp_servers.elasticsearch]
+url = "http://127.0.0.1:20130/mcp"
 
-  [mcp_servers.kibana]
-  url = "http://127.0.0.1:20132/mcp"
+[mcp_servers.kibana]
+url = "http://127.0.0.1:20132/mcp"
 
-  [mcp_servers.msteams]
-  url = "http://127.0.0.1:20133/mcp"
-  bearer_token_env_var = "MSTEAMS_MCP_API_KEY"
-  ...
+[mcp_servers.msteams]
+url = "http://127.0.0.1:20133/mcp"
+bearer_token_env_var = "MSTEAMS_MCP_API_KEY"
+...
 ```
-</details>
 
+</details>
 
 <details>
   <summary>GitHub Copilot CLI</summary>
