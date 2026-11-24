@@ -6,4 +6,4 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .venv/
-
+elastic-official-mcp-review.md

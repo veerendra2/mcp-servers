@@ -4,7 +4,6 @@ services:
   mcp-msteams:
     build:
       context: .
-    pull_policy: build
     volumes:
       - mcp_msteams_data:/home/pwuser
     secrets:
@@ -46,13 +45,14 @@ services:
       - --tools=teams_status
       - --tools=teams_wait_for_reply
     restart: unless-stopped
-    mem_limit: 2g
-    cpus: "2.0"
-    pids_limit: 256
     cap_drop:
       - ALL
+    cpus: "2.0"
     hostname: mcp-msteams
     init: true
+    mem_limit: 2g
+    pids_limit: 256
+    pull_policy: build
     read_only: true
     security_opt:
       - no-new-privileges:true
@@ -70,13 +70,13 @@ services:
       DISPLAY: :99
     ports:
       - '127.0.0.1:6080:6080'
-    mem_limit: 3g
-    cpus: "2.0"
-    pids_limit: 256
     cap_drop:
       - ALL
+    cpus: "2.0"
     hostname: mcp-msteams
     init: true
+    mem_limit: 3g
+    pids_limit: 256
     profiles:
       - login
     read_only: true

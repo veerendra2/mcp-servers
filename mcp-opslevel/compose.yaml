@@ -1,0 +1,41 @@
+---
+name: mcp-opslevel
+services:
+  mcp-opslevel:
+    image: mcp-opslevel:http-local
+    build:
+      context: .
+      dockerfile_inline: |
+        ARG OPSLEVEL_MCP_IMAGE=public.ecr.aws/opslevel/mcp:latest
+        FROM $${OPSLEVEL_MCP_IMAGE} AS opslevel
+
+        FROM node:22-bookworm-slim
+        ARG SUPERGATEWAY_VERSION=4.2.4
+        RUN npm install --global --omit=dev --ignore-scripts "supergateway@$${SUPERGATEWAY_VERSION}" \
+            && npm cache clean --force
+        COPY --from=opslevel /usr/local/bin/opslevel-mcp /usr/local/bin/opslevel-mcp
+        COPY --from=opslevel /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+        USER node
+        EXPOSE 8000
+        HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+            CMD ["node", "-e", "fetch('http://127.0.0.1:8000/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+        ENTRYPOINT ["supergateway"]
+        CMD ["--stdio", "/usr/local/bin/opslevel-mcp", \
+             "--outputTransport", "streamableHttp", "--stateful", \
+             "--sessionTimeout", "1800000", "--host", "0.0.0.0", \
+             "--port", "8000", "--streamableHttpPath", "/mcp", \
+             "--healthEndpoint", "/healthz", "--logLevel", "none"]
+      args:
+        OPSLEVEL_MCP_IMAGE: ${OPSLEVEL_MCP_IMAGE:-public.ecr.aws/opslevel/mcp:latest}
+    env_file:
+      - .env
+    ports:
+      - '127.0.0.1:20135:8000'
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    init: true
+    pull_policy: build
+    read_only: true
+    security_opt:
+      - no-new-privileges:true

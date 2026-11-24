@@ -27,6 +27,8 @@ Projects:
 - [mcp-grafana](./mcp-grafana)
 - [mcp-kibana](./mcp-kibana)
 - [mcp-msteams](./mcp-msteams)
+- [mcp-pagerduty](./mcp-pagerduty)
+- [mcp-opslevel](./mcp-opslevel)
 
 ## Documentation and startup
 
