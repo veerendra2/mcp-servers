@@ -12,7 +12,7 @@ services:
       - --address=0.0.0.0:8000
       - --allowed-hosts=localhost:20131,127.0.0.1:20131
       - --disable-write=true
-    entrypoint: [ "/app/mcp-grafana" ]
+    entrypoint: ["/app/mcp-grafana"]
     restart: unless-stopped
     cap_drop:
       - ALL
