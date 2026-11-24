@@ -12,7 +12,8 @@ context from external systems. These services are exposed on localhost only.
 | [mcp-grafana](./mcp-grafana)             | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana)                         | `http://127.0.0.1:20131/mcp` |
 | [mcp-kibana](./mcp-kibana)               | [TocharianOU/mcp-server-kibana](https://github.com/TocharianOU/mcp-server-kibana)     | `http://127.0.0.1:20132/mcp` |
 | [mcp-msteams](./mcp-msteams)             | [m0nkmaster/msteams-mcp](https://github.com/m0nkmaster/msteams-mcp)                   | `http://127.0.0.1:20133/mcp` |
-| [mcp-pagerduty](./mcp-pagerduty)         | [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server)   | `http://127.0.0.1:20134/mcp` |
+| [mcp-pagerduty](./mcp-pagerduty)         | [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server)\* | `http://127.0.0.1:20134/mcp` |
+| [mcp-opslevel](./mcp-opslevel)           | [apaul-redcare/opslevel-mcp](https://github.com/apaul-redcare/opslevel-mcp)\*         | `http://127.0.0.1:20135/mcp` |
 
 Create each ignored `.env` file from its example:
 
@@ -22,6 +23,8 @@ cp mcp-elasticsearch/.env.example mcp-elasticsearch/.env
 cp mcp-grafana/.env.example mcp-grafana/.env
 cp mcp-kibana/.env.example mcp-kibana/.env
 cp mcp-msteams/.env.example mcp-msteams/.env
+cp mcp-pagerduty/.env.example mcp-pagerduty/.env
+cp mcp-opslevel/.env.example mcp-opslevel/.env
 ```
 
 Fill in the required values before starting the servers.
@@ -61,6 +64,12 @@ url = "http://127.0.0.1:20132/mcp"
 [mcp_servers.msteams]
 url = "http://127.0.0.1:20133/mcp"
 bearer_token_env_var = "MSTEAMS_MCP_API_KEY"
+
+[mcp_servers.pagerduty]
+url = "http://127.0.0.1:20134/mcp"
+
+[mcp_servers.opslevel]
+url = "http://127.0.0.1:20135/mcp"
 ...
 ```
 
@@ -101,6 +110,16 @@ Add to `~/.copilot/mcp-config.json`:
         "Authorization": "Bearer ${MSTEAMS_MCP_API_KEY}"
       },
       "tools": ["*"]
+    },
+    "pagerduty": {
+      "type": "http",
+      "url": "http://127.0.0.1:20134/mcp",
+      "tools": ["*"]
+    },
+    "opslevel": {
+      "type": "http",
+      "url": "http://127.0.0.1:20135/mcp",
+      "tools": ["*"]
     }
   }
 }
@@ -140,6 +159,14 @@ Add to `~/.pi/agent/mcp.json`:
       "headers": {
         "Authorization": "Bearer ${MSTEAMS_MCP_API_KEY}"
       }
+    },
+    "pagerduty": {
+      "type": "http",
+      "url": "http://127.0.0.1:20134/mcp"
+    },
+    "opslevel": {
+      "type": "http",
+      "url": "http://127.0.0.1:20135/mcp"
     }
   }
 }
@@ -180,6 +207,14 @@ For user scope, add to `~/.claude.json`:
       "headers": {
         "Authorization": "Bearer ${MSTEAMS_MCP_API_KEY}"
       }
+    },
+    "pagerduty": {
+      "type": "http",
+      "url": "http://127.0.0.1:20134/mcp"
+    },
+    "opslevel": {
+      "type": "http",
+      "url": "http://127.0.0.1:20135/mcp"
     }
   }
 }
