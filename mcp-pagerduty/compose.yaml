@@ -41,6 +41,7 @@ services:
     cap_drop:
       - ALL
     init: true
+    pull_policy: build
     read_only: true
     security_opt:
       - no-new-privileges:true
